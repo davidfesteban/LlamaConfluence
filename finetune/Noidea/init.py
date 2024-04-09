@@ -18,7 +18,7 @@ def tokenize_function(examples):
     return tokenizer(examples["text"], padding="max_length", truncation=True, max_length=512)
 
 tokenized_dataset = dataset.map(tokenize_function, batched=True)
-
+print("Done1")
 # Define training arguments with smaller batch size suitable for CPU
 training_args = TrainingArguments(
     output_dir="./llama2_finetuned",
@@ -36,9 +36,11 @@ trainer = Trainer(
     args=training_args,
     train_dataset=tokenized_dataset["train"],
 )
+print("Done2")
 
 # Start fine-tuning
 trainer.train()
+print("Done3")
 model.save_pretrained("./my_fine_tuned_model")
 tokenizer.save_pretrained("./my_fine_tuned_model")
 
